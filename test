@@ -1,0 +1,60 @@
+package sample;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class ConilTestSuite {
+
+    private static final String DEFAULT_HOME_PAGE_SV ="https://www.dev.conil.se";
+    private static final String DRIVER_CHROME ="webdriver.chrome.driver";
+    private static final String DRIVER_CHROME_LOCATION = "/Users/gabrielle/Downloads/chromedriver";
+    WebDriver driver;
+
+    public static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver", "/Users/gabrielle/Downloads/chromedriver");
+        WebDriver chromedriver = new ChromeDriver();
+        chromedriver.get("https://dev.conil.se");
+
+        ConilTestSuite conilTestSuite = new ConilTestSuite();
+        conilTestSuite.runKontaktFormulär();
+        conilTestSuite.runContactForm(DRIVER_CHROME);
+    }
+
+   // void runChrome(){
+   //   driver = new ChromeDriver();
+   //  driver.findElement(By.xpath("#wpcf7-f3388-p3361-o1 > form > p:nth-child(2) > span > input")).sendKeys("testarenewton2019@gmail.com");
+   //     driver.findElement(By.xpath("textarea.wpcf7-form-control")).sendKeys("Test Message");
+   //     driver.findElement(By.xpath(".wpcf7-submit")).click();
+
+//}
+
+    private void runKontaktFormulär(){
+
+        System.setProperty (ConilTestSuite.DRIVER_CHROME, ConilTestSuite.DRIVER_CHROME_LOCATION);
+        driver = new ChromeDriver();
+        driver.get (DEFAULT_HOME_PAGE_SV);
+        driver.findElement(By.xpath("#wpcf7-f3388-p3361-o1 > form > p:nth-child(2) > span > input")).sendKeys("testarenewton2019@gmail.com");
+        driver.findElement(By.xpath("textarea.wpcf7-form-control")).sendKeys("Test Massage");
+        driver.findElement(By.xpath(".wpcf7-submit")).click();
+        driver.close();
+    }
+    private void runContactForm(String driverName) {
+
+        System.setProperty(driverName, ConilTestSuite.DRIVER_CHROME_LOCATION);
+        if (driverName.contains("chrome")) {
+            driver = new ChromeDriver();
+        } else {
+            return;
+        }
+        driver.get(DEFAULT_HOME_PAGE_SV);
+        driver.findElement(By.xpath("//*[@id=\"menu-item-3383\"]/a")).click();
+        driver.findElement(By.xpath("//*[@id=\"contact-3361-sub_row_6-0-1-1-1-form\"]/div[2]/div[1]")).sendKeys("Test");
+        driver.findElement(By.xpath("//*[@id=\"contact-3361-sub_row_6-0-1-1-1-form\"]/div[2]/div[2]")).sendKeys("testarenewton2019@gmail.com");
+        driver.findElement(By.xpath("//*[@id=\"contact-3361-sub_row_6-0-1-1-1-form\"]/div[2]/div[3]")).sendKeys("Test Message");
+        driver.findElement(By.xpath("//*[@id=\"contact-3361-sub_row_6-0-1-1-1-form\"]/div[2]/div[4]")).sendKeys("Testämne");
+        driver.findElement(By.xpath("//*[@id=\"contact-3361-sub_row_6-0-1-1-1-form\"]/div[2]/div[5]/div/button")).click();
+        //driver.close();
+    }
+
+}
